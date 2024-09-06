@@ -1,0 +1,24 @@
+-- สร้างผู้ใช้ admin
+CREATE USER admin WITH PASSWORD '0000';
+
+-- สร้างผู้ใช้ dev
+CREATE USER dev WITH PASSWORD '0000';
+
+-- สร้างผู้ใช้ users
+CREATE USER users WITH PASSWORD '0000';
+
+-- กำหนดสิทธิ์ให้กับ admin
+GRANT ALL PRIVILEGES ON DATABASE porapipat TO admin;
+
+-- กำหนดสิทธิ์ให้กับ dev
+GRANT CONNECT ON DATABASE porapipat TO dev;
+GRANT USAGE ON SCHEMA public TO dev;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO dev;
+
+-- กำหนดสิทธิ์ให้กับ users
+GRANT CONNECT ON DATABASE porapipat TO users;
+GRANT USAGE ON SCHEMA public TO users;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO users;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO dev;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO users;
